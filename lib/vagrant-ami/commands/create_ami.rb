@@ -25,6 +25,10 @@ module VagrantPlugins
             options[:tags] = Hash[t.map {|kv| kv.split("=")}]
           end
 
+          o.on("--noreboot", "The instance will not be rebooted during the bundle process.") do |nr|
+            options[:noreboot] = nr
+          end
+
           # TODO add option to wait until AMI creation is complete?
           # TODO does this work if the instance is terminated immediately after hte create_ami call
           # is issues?
@@ -44,7 +48,8 @@ module VagrantPlugins
             :machine    => machine,
             :name       => options[:name],
             :desc       => options[:desc],
-            :tags       => options[:tags]
+            :tags       => options[:tags],
+            :noreboot   => options[:noreboot],
           })
         end
         0

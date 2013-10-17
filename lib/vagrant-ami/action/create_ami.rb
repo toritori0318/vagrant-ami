@@ -38,7 +38,7 @@ module VagrantPlugins
             # https://github.com/mitchellh/vagrant-aws/blob/master/lib/vagrant-aws/action/run_instance.rb#L79
             server = env[:aws_compute].servers.get(env[:machine].id)
             begin
-              data = env[:aws_compute].create_image(server.identity, env[:name], env[:desc])
+              data = env[:aws_compute].create_image(server.identity, env[:name], env[:desc], no_reboot = env[:noreboot])
             rescue Excon::Errors::BadRequest => e
               if e.response.body =~ /InvalidAMIName.Duplicate/ 
                 raise VagrantPlugins::AWS::Errors::FogError,
